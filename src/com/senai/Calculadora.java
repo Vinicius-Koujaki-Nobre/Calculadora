@@ -42,7 +42,7 @@ public class Calculadora implements ActionListener {
         JButton bPoint = new JButton(".");
         JButton bQuadNum = new JButton("x²");
         JButton bRaizNum = new JButton("Raiz");
-        //Botão de fechar o programa.
+        //Botão surpresa do programa.
         JButton bHist = new JButton("🐻");
 
         // Adicionar os botões ao painel
@@ -157,6 +157,10 @@ public class Calculadora implements ActionListener {
                         else if (s1.equals("/"))
                             result = (Double.parseDouble(s0) /
                                     Double.parseDouble(s2));
+                            if (Double.parseDouble(s2) == 0) {
+                                s0 = "Não é possivel efetuar a divisão por 0.";
+                                s1 = s2 = "";
+                            }
                         else if (s1.equals("*"))
                             result = (Double.parseDouble(s0) *
                                     Double.parseDouble(s2));
@@ -202,6 +206,10 @@ public class Calculadora implements ActionListener {
             } else if (s1.equals("/")) {
                 store = (Double.parseDouble(s0) /
                         Double.parseDouble(s2));
+                if (Double.parseDouble(s2) == 0) {
+                    s0 = "Não é possivel efetuar a divisão por 0.";
+                    s1 = s2 = "";
+                }
             } else {
                 store = (Double.parseDouble(s0) *
                         Double.parseDouble(s2));
@@ -270,18 +278,21 @@ public class Calculadora implements ActionListener {
                 s1 = type;
             else {
                 double te;
-                if (s1.equals("+"))
-                    te = (Double.parseDouble(s0) +
-                            Double.parseDouble(s2));
-                else if (s1.equals("-"))
-                    te = (Double.parseDouble(s0) -
-                            Double.parseDouble(s2));
-                else if (s1.equals("/"))
-                    te = (Double.parseDouble(s0) /
-                            Double.parseDouble(s2));
-                else
-                    te = (Double.parseDouble(s0) *
-                            Double.parseDouble(s2));
+                if (s1.equals("+")) {
+                    te = Double.parseDouble(s0) + Double.parseDouble(s2);
+                } else if (s1.equals("-")) {
+                    te = Double.parseDouble(s0) - Double.parseDouble(s2);
+                } else if (s1.equals("/")) {
+                    if (s2.equals("0")) {
+                        System.out.println("Não é possivel dividir por 0.");
+                        te = 0;
+                        s1 = s2 = "";
+                    } else {
+                        te = Double.parseDouble(s0) / Double.parseDouble(s2);
+                    }
+                } else {
+                    te = Double.parseDouble(s0) * Double.parseDouble(s2);
+                }
                 s0 = Double.toString(te);
                 s1 = type;
                 s2 = "";
